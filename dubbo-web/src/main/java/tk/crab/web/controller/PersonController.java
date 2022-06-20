@@ -1,6 +1,7 @@
 package tk.crab.web.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -8,6 +9,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import tk.crab.IPersonOperation;
 import tk.crab.Person;
 
 import javax.annotation.Resource;
@@ -57,6 +59,15 @@ public class PersonController {
         System.out.println("request path:" + path);
 
         return restTemplate.postForObject(path, new Person("lsk", "15"), Person.class);
+    }
+
+    @DubboReference(version = "1.0.0", check = false)
+    private IPersonOperation personOperation;
+
+    @RequestMapping("dubbo")
+    public Person dubbo() {
+        Person person = personOperation.getPerson("123456");
+        return person;
     }
 
 }

@@ -13,6 +13,7 @@
         <module>dubbo-web</module>
         <module>dubbo-producer</module>
         <module>nacos-config</module>
+        <module>stream-rocketmq</module>
     </modules>
     <packaging>pom</packaging>
 

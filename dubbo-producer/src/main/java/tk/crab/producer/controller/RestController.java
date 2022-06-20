@@ -1,5 +1,6 @@
 package tk.crab.producer.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -23,6 +24,7 @@ public class RestController {
     private DiscoveryClient discoveryClient;
 
     @RequestMapping(value = "hello", method = RequestMethod.POST)
+    @SentinelResource("hello-resource")
     public Person getPerson(@RequestBody Person person) {
         log.info("====== person ====== : {}", person.toString());
 
@@ -33,6 +35,7 @@ public class RestController {
     }
 
     @RequestMapping("info")
+    @SentinelResource("info-resource")
     public Object info() {
         List<String> services = discoveryClient.getServices();
         for (String service : services) {
@@ -47,3 +50,4 @@ public class RestController {
         return discoveryClient;
     }
 }
+
