@@ -14,6 +14,7 @@
         <module>dubbo-producer</module>
         <module>nacos-config</module>
         <module>stream-rocketmq</module>
+        <module>stream-kafka</module>
     </modules>
     <packaging>pom</packaging>
 
