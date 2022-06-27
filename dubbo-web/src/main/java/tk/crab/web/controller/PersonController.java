@@ -23,6 +23,17 @@ import javax.annotation.Resource;
 @RefreshScope
 public class PersonController {
 
+    @Value("${user.name:zz}")
+    String userName;
+    @Value("${user.age:30}")
+    String age;
+    @Resource
+    private RestTemplate restTemplate;
+    @Resource
+    private LoadBalancerClient loadBalancerClient;
+    @DubboReference(version = "1.0.0", check = false)
+    private IPersonOperation personOperation;
+
     @RequestMapping("info")
     public Person getPerson(Person person) {
         Person p = new Person();
@@ -30,19 +41,6 @@ public class PersonController {
         p.setAge("111");
         return p;
     }
-
-    @Resource
-    private RestTemplate restTemplate;
-    @Resource
-    private LoadBalancerClient loadBalancerClient;
-
-
-    @Value("${user.name:zz}")
-    String userName;
-
-    @Value("${user.age:30}")
-    String age;
-
 
     @RequestMapping("config")
     public String config() {
@@ -55,14 +53,12 @@ public class PersonController {
 
         log.info("name:{},age:{}", userName, age);
         ServiceInstance serviceInstance = loadBalancerClient.choose("producer");
-        String path = String.format("http://%s:%s/person/hello", serviceInstance.getHost(), serviceInstance.getPort());
+        // 当使用  @LoadBalanced 的时候这里就不能直接使用 ip+port了，需要使用服务id(服务提供者注册的spring.application.name)
+        String path = "http://producer/person/hello";
         System.out.println("request path:" + path);
 
         return restTemplate.postForObject(path, new Person("lsk", "15"), Person.class);
     }
-
-    @DubboReference(version = "1.0.0", check = false)
-    private IPersonOperation personOperation;
 
     @RequestMapping("dubbo")
     public Person dubbo() {
