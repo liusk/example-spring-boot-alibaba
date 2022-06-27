@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>example-spring-boot-alibaba</artifactId>
-        <groupId>tk.crab</groupId>
-        <version>${current.version}</version>
-        <relativePath>../pom.xml</relativePath>
+      <artifactId>example-spring-boot-alibaba</artifactId>
+      <groupId>tk.crab</groupId>
+      <version>${revision}</version>
+      <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>dubbo-web</artifactId>

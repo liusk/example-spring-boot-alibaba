@@ -6,7 +6,7 @@
 
     <groupId>tk.crab</groupId>
     <artifactId>example-spring-boot-alibaba</artifactId>
-    <version>${current.version}</version>
+    <version>${revision}</version>
 
     <modules>
         <module>dubbo-api</module>
@@ -20,7 +20,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <current.version>1.0-SNAPSHOT</current.version>
+        <revision>1.0-SNAPSHOT</revision>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <alibaba.version>2021.0.1.0</alibaba.version>
